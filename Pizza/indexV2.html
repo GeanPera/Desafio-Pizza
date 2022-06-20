@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Desafio - Pizza V2</title>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            body{
+                background-color: rgb(155, 155, 155);
+            }
+            .clFieldset1{
+                border: 2px solid black;
+                width: 270px;
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                background-image: url("fundoPizza1.jpg");
+                background-repeat: no-repeat; 
+                background-size: auto 100%;
+                border-radius: 15px;
+                margin: auto;
+                color: white;
+                
+            }
+            .clFieldset2{
+                border: 2px solid black;
+                width: 520px;
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                background-image: url("fundoPizza2.jpg");
+                background-repeat: no-repeat; 
+                height: auto;
+                border-radius: 15px;
+                margin: auto;
+                color: white;
+            }
+            form{
+                padding: 15px;
+                background-color: rgba(27, 26, 26, 0.479);
+                border-radius: 15px;
+            }
+            div{
+                margin: 13px;
+            }
+            .clTitulo{
+                text-align: center;
+            }
+            label{
+                margin-bottom: 5px;
+            }
+            #idBtEnviar{
+                width: 60px;
+                background-color: white;
+                border: 1px solid black;
+                padding: 2px;
+            }
+            #idBtCalcular{
+                width: 60px;
+                background-color: white;
+                border: 1px solid black;
+                padding: 2px;
+            }
+            input{
+                background-color: white;
+                border: 1px solid black;
+                height: 16px;
+                padding: 2px;
+                padding-left: 5px;
+            }
+            .clDivRelatorio{
+                display: inline-table;
+                margin-top: 20px;
+                margin-right: 43px; 
+                margin-left: 0px;
+                margin-bottom: 20px;
+            }
+            p{
+                width: 10px;
+            }
+            .clEscolhaFormada{
+                margin-left: 13px;
+                margin-right: 13px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <fieldset class="clFieldset1">
+                <!-- Tela para inserir os dados das pizzas -->
+                <form action="">
+                    <h2 class="clTitulo">Calculadora de custo beneficio de pizza</h1>
+                    <div>
+                        <label for="idNomePizza">Qual o nome da pizza?</label>
+                        <input type="text" name="nmNomePizza" id="idNomePizza" placeholder=" Nome....">
+                    </div>
+                    <div>
+                        <label for="">Qual o formato?</label>
+                    </div>
+                    <div class="clEscolhaFormada">
+                        <input type="radio" name="nmEscolherForma" id="idBtRedonda">
+                        <label for="">Redonda</label>
+                    </div>
+                    <div class="clEscolhaFormada">
+                        <input type="radio" name="nmEscolherForma" id="idBtQuadrada">
+                        <label for="">Quadrada</label>
+                    </div>
+                    <div class="clEscolhaFormada">
+                        <input type="radio" name="nmEscolherForma" id="idBtRetangular">
+                        <label for="">Retangular</label>
+                    </div>
+                    <div id="idDivDiametro" hidden>
+                        <label for="idDiametroPizza">Qual o diâmetro da pizza?</label>
+                        <input type="number" name="nmDiametroPizza" id="idDiametroPizza" placeholder=" Diâmetro da Pizza....">
+                    </div>
+                    <div id="idDivLadoQuadrado" hidden>
+                            <label for="idTamanhoLadoPizza">Qual o tamanho do lado da pizza?</label>
+                            <input type="number" name="nmTamanhoLadoPizza" id="idTamanhoLadoPizza" placeholder=" Lado....">
+                        </div>
+                    <div id="idDivAltura" hidden>
+                        <label for="idTamanhoAlturaPizza">Qual o tamanho do primeiro lado da pizza?</label>
+                        <input type="number" name="nmTamanhoAlturaPizza" id="idTamanhoAlturaPizza" placeholder=" Primeiro lado....">
+                    </div>
+                    <div id="idDivBase" hidden>
+                        <label for="idTamalhoBasePizza">Qual o tamanho do segundo lado da pizza?</label>
+                        <input type="number" name="nmTamalhoBasePizza" id="idTamalhoBasePizza" placeholder=" Segundo lado....">
+                    </div>
+                    <div>
+                        <label for="idPrecoPizza">Qual o preço da pizza?</label>
+                        <input type="number" name="nmPrecoPizza" id="idPrecoPizza" placeholder=" R$....">
+                    </div>
+                    <div>
+                        <button type="button" id="idBtEnviar">Enviar</button>
+                        <button type="button" id="idBtCalcular">Calcular</button>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+        <div id="idQuadroRelatorio" hidden>
+            <fieldset class="clFieldset2">
+                <!-- Quadro para apresentar o relatorio -->
+                <div class="clDivRelatorio">
+                    <label for="">Nomes</label>
+                    <p id="idPNome"></p>
+                </div>
+                <div class="clDivRelatorio">
+                    <label for="">Tam.(cm)</label>
+                    <p id="idPTamanho"></p>
+                </div>
+                <div class="clDivRelatorio">
+                    <label for="">Preço</label>
+                    <p id="idPPrecoTotal"></p>
+                </div>
+                <div class="clDivRelatorio">
+                    <label for="">R$ p/cm<sup>2</sup></label>
+                    <p id="idPPrecoPorCm"></p>
+                </div>
+                <div class="clDivRelatorio">
+                    <label for="">Diferença %</label>
+                    <p id="idPDiferença"></p>
+                </div>
+            </fieldset>
+        </div>
+        <script>
+            // Declaracão das variáveis
+            // Variáveis de entrada
+            var nomeEnviado
+            var diametroEnviado
+            var precoEnviado
+            var alturaEnviada
+            var baseEnviada
+            var ladoQuadradoEnviado
+            // Variáveis de armazenagem
+            var nomesPizzas = []
+            var tamanhosPizzas = []
+            var precosPizzas = []
+            var areas = []
+            var precosPorCm2 = []
+            var diferencas = []
+            // Variáveis para a saida
+            var pNome = document.querySelector("#idPNome")
+            var pTamanho = document.querySelector("#idPTamanho")
+            var pPrecoTotal = document.querySelector("#idPPrecoTotal")
+            var pPrecoPorCm = document.querySelector("#idPPrecoPorCm")
+            var pDiferença = document.querySelector("#idPDiferença")
+            // Variáveis dos botões
+            var btEnviar = document.querySelector("#idBtEnviar")
+            var btCalcular = document.querySelector("#idBtCalcular")
+            var btRedonda = document.querySelector("#idBtRedonda")
+            var btQuadrada = document.querySelector("#idBtQuadrada")
+            var btRetangular = document.querySelector("#idBtRetangular")
+            btRedonda.onclick = function () {
+                // Forma redonda selecionada
+                document.querySelector("#idDivDiametro").hidden = false
+                document.querySelector("#idDivAltura").hidden = true
+                document.querySelector("#idDivBase").hidden = true
+                document.querySelector("#idDivLadoQuadrado").hidden = true
+            }
+            btQuadrada.onclick = function () {
+                // Forma quadrada selecionada
+                document.querySelector("#idDivDiametro").hidden = true
+                document.querySelector("#idDivAltura").hidden = true
+                document.querySelector("#idDivBase").hidden = true
+                document.querySelector("#idDivLadoQuadrado").hidden = false
+            } 
+            btRetangular.onclick = function () {
+                // Forma retangular selecionada
+                document.querySelector("#idDivDiametro").hidden = true
+                document.querySelector("#idDivAltura").hidden = false
+                document.querySelector("#idDivBase").hidden = false
+                document.querySelector("#idDivLadoQuadrado").hidden = true
+            }  
+            btEnviar.onclick = function () {
+                // Envia nome, tamanho em cm e preço
+                capturarDados()
+                validarDados()
+                if (validarDados() == true) {
+                    enviarDados()
+                    limpartela()
+                }
+                else {
+                    alert(" Algum campo está vazio ")
+                }
+            }             
+            btCalcular.onclick = function () {
+                // Calcular area, preço por cm2, a diferença e imprimir
+                document.querySelector("#idQuadroRelatorio").hidden = false
+                calcularPrecoPorCm2()
+                colocarNaOrdem()
+                calcularDiferença()
+                imprimir()
+            }
+            function validarDados() {
+                // Verificar se algum espaço de digitação está em branco
+                if (btRedonda.checked == true) {
+                    // Quando a forma redonda estiver selecionada
+                    if (nomeEnviado == "" || diametroEnviado == "" || precoEnviado == "") {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+                if (btRetangular.checked == true) {
+                    // Quando a forma quadrada ou rentagular for selecionada
+                    if (nomeEnviado == "" || alturaEnviada == "" || baseEnviada == "" || precoEnviado == "") {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+                if (btQuadrada.checked == true) {
+                    // Quando a forma quadrada ou rentagular for selecionada
+                    if (nomeEnviado == "" || ladoQuadradoEnviado == "" || precoEnviado == "") {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }
+            function capturarDados() {
+                // Capturar nome, tamaho e preço
+                nomeEnviado = document.querySelector("#idNomePizza").value
+                diametroEnviado = document.querySelector("#idDiametroPizza").value
+                precoEnviado = document.querySelector("#idPrecoPizza").value
+                alturaEnviada = document.querySelector("#idTamanhoAlturaPizza").value
+                baseEnviada = document.querySelector("#idTamalhoBasePizza").value
+                ladoQuadradoEnviado = document.querySelector("#idTamanhoLadoPizza").value
+            }
+            function enviarDados() {
+                // Envias os dados, cada um para seu array com posições relacionadas
+                nomesPizzas.push(nomeEnviado)
+                precosPizzas.push(precoEnviado)
+                if (btRedonda.checked == true) {
+                    tamanhosPizzas.push(diametroEnviado)
+                    // Enviar a area da pizza redonda ja calculada
+                    areas.push((diametroEnviado * Math.PI).toFixed(2))
+                }
+                if (btRetangular.checked == true) {
+                    tamanhosPizzas.push(alturaEnviada + "x" + baseEnviada)
+                    // Enviar a forma da retangular ja calulada
+                    areas.push((alturaEnviada * baseEnviada).toFixed(2))
+                }
+                 if (btQuadrada.checked == true) {
+                    tamanhosPizzas.push(ladoQuadradoEnviado + "x" + ladoQuadradoEnviado)
+                    // Enviar a forma da quadrada ja calulada
+                    areas.push((ladoQuadradoEnviado * ladoQuadradoEnviado).toFixed(2))
+                }            
+            }
+            function colocarNaOrdem() {
+                // Colocando na ordem do melhor Cb para o pior CB
+                let isTrueOrFalse = true
+                while (isTrueOrFalse) {
+                    isTrueOrFalse = false
+                    for (var i = 0; i < precosPorCm2.length; i++) {
+                        if (precosPorCm2[i] > precosPorCm2[i + 1]) {
+                            isTrueOrFalse = true
+                            // Ordenando os preços por cm quadrado
+                            let aux1 = precosPorCm2[i]
+                            precosPorCm2[i] = precosPorCm2[i + 1]
+                            precosPorCm2[i + 1] = aux1
+                            // Ordenando os nomes
+                            let aux2 = nomesPizzas[i]
+                            nomesPizzas[i] = nomesPizzas[i + 1]
+                            nomesPizzas[i + 1] = aux2
+                            // Ordenando os tamanhos
+                            let aux3 = tamanhosPizzas[i]
+                            tamanhosPizzas[i] = tamanhosPizzas[i + 1]
+                            tamanhosPizzas[i + 1] = aux3
+                            // Ordenando os preços
+                            let aux4 = precosPizzas[i]
+                            precosPizzas[i] = precosPizzas[i + 1]
+                            precosPizzas[i + 1] = aux4
+                            // Ordenando as areas
+                            let aux5 = areas[i]
+                            areas[i] = areas[i + 1]
+                            areas[i + 1] = aux5
+                        }
+                    }
+                }
+            }
+            function calcularPrecoPorCm2() {
+                // Calcular os preços por cm2
+                precosPorCm2 = []
+                for (var i = 0; i < precosPizzas.length; i++) {
+                    let precoPorCm2 = precosPizzas[i] / areas[i]
+                    precosPorCm2.push(precoPorCm2.toFixed(2))
+                }
+            }  
+            function calcularDiferença() {
+                // Calcular a diferença entre o custo beneficio delas
+                diferencas = []
+                diferencas.push("MelhorCB")
+                for (var i = 0; i < precosPorCm2.length - 1; i++) {
+                    // Iterando o array e calculando a diferença usando conceito da regra de 3
+                    let diferenca = (precosPorCm2[i + 1] * 100 / precosPorCm2[i] - 100).toFixed(1)
+                    diferencas.push("+" + diferenca + "%")
+                }
+            }
+            function imprimir() {
+                // Imprimir o relatorio na tela
+                pNome.innerHTML = ""
+                pTamanho.innerHTML = ""
+                pPrecoTotal.innerHTML = ""
+                pPrecoPorCm.innerHTML = ""
+                pDiferença.innerHTML = ""
+                for (var i = 0; i < nomesPizzas.length; i++) {
+                    // Iterando os arrays e imprimindo 
+                    pNome.innerHTML = pNome.innerHTML + nomesPizzas[i] + " "
+                    pTamanho.innerHTML = pTamanho.innerHTML + tamanhosPizzas[i] + " "
+                    pPrecoTotal.innerHTML = pPrecoTotal.innerHTML + "R$" + precosPizzas[i] + " "
+                    pPrecoPorCm.innerHTML = pPrecoPorCm.innerHTML +  "R$" + precosPorCm2[i] + " "
+                    pDiferença.innerHTML = pDiferença.innerHTML + diferencas[i] + " "
+                }
+            }
+            function limpartela() {
+                // Limpa os campos nome, tamanaho, preço, altura e base
+                document.querySelector("#idNomePizza").value = ""
+                document.querySelector("#idDiametroPizza").value = ""
+                document.querySelector("#idPrecoPizza").value = ""
+                document.querySelector("#idTamanhoAlturaPizza").value = ""
+                document.querySelector("#idTamalhoBasePizza").value = ""
+                document.querySelector("#idTamanhoLadoPizza").value = ""
+            }
+        </script>
+    </body>
+</html>
