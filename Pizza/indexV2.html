@@ -178,8 +178,12 @@
             var precoEnviado
             var alturaEnviada
             var baseEnviada
+            var areaEnviada
+            var tamanhoEnviado
+            var precosPorCm2Enviado
             var ladoQuadradoEnviado
             // Variáveis de armazenagem
+            var pizzas = []
             var nomesPizzas = []
             var tamanhosPizzas = []
             var precosPizzas = []
@@ -234,7 +238,6 @@
             btCalcular.onclick = function () {
                 // Calcular area, preço por cm2, a diferença e imprimir
                 document.querySelector("#idQuadroRelatorio").hidden = false
-                calcularPrecoPorCm2()
                 colocarNaOrdem()
                 calcularDiferença()
                 imprimir()
@@ -276,25 +279,32 @@
                 ladoQuadradoEnviado = document.querySelector("#idTamanhoLadoPizza").value
             }
             function enviarDados() {
-                // Envias os dados, cada um para seu array com posições relacionadas
-                nomesPizzas.push(nomeEnviado)
-                precosPizzas.push(precoEnviado)
                 if (btRedonda.checked == true) {
-                    tamanhosPizzas.push(diametroEnviado)
+                    tamanhoEnviado = diametroEnviado
                     // Enviar a area da pizza redonda ja calculada
-                    areas.push((diametroEnviado * Math.PI).toFixed(2))
+                    areaEnviada = (diametroEnviado * Math.PI).toFixed(2)
+                    precosPorCm2Enviado = calcularPrecoPorCm2()
                 }
                 if (btRetangular.checked == true) {
-                    tamanhosPizzas.push(alturaEnviada + "x" + baseEnviada)
+                    tamanhoEnviado = (alturaEnviada + "x" + baseEnviada)
                     // Enviar a forma da retangular ja calulada
-                    areas.push((alturaEnviada * baseEnviada).toFixed(2))
+                    areaEnviada = (alturaEnviada * baseEnviada).toFixed(2)
+                    precosPorCm2Enviado = calcularPrecoPorCm2()
                 }
                  if (btQuadrada.checked == true) {
-                    tamanhosPizzas.push(ladoQuadradoEnviado + "x" + ladoQuadradoEnviado)
+                    tamanhoEnviado = (ladoQuadradoEnviado + "x" + ladoQuadradoEnviado)
                     // Enviar a forma da quadrada ja calulada
-                    areas.push((ladoQuadradoEnviado * ladoQuadradoEnviado).toFixed(2))
-                }            
+                    areaEnviada = (ladoQuadradoEnviado * ladoQuadradoEnviado).toFixed(2)
+                    precosPorCm2Enviado = calcularPrecoPorCm2()
+                }      
+                pizzas.push([nomeEnviado, tamanhoEnviado, precoEnviado, precosPorCm2Enviado])    
+                console.log(pizzas)  
             }
+            function calcularPrecoPorCm2() {
+                // Calcular os preços por cm2
+                    precosPorCm2Enviado = (precoEnviado / areaEnviada).toFixed(2)
+                    return precosPorCm2Enviado
+            } 
             function colocarNaOrdem() {
                 // Colocando na ordem do melhor Cb para o pior CB
                 let isTrueOrFalse = true
@@ -327,14 +337,7 @@
                     }
                 }
             }
-            function calcularPrecoPorCm2() {
-                // Calcular os preços por cm2
-                precosPorCm2 = []
-                for (var i = 0; i < precosPizzas.length; i++) {
-                    let precoPorCm2 = precosPizzas[i] / areas[i]
-                    precosPorCm2.push(precoPorCm2.toFixed(2))
-                }
-            }  
+            
             function calcularDiferença() {
                 // Calcular a diferença entre o custo beneficio delas
                 diferencas = []
