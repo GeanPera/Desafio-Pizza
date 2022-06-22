@@ -237,6 +237,7 @@
                 document.querySelector("#idQuadroRelatorio").hidden = false
                 colocarNaOrdem()
                 calcularDiferença()
+                organizar()
                 imprimir()
             }
             function validarDados() {
@@ -299,15 +300,12 @@
                     precosPorCm2Enviado = calcularPrecoPorCm2()
                 }      
                 pizzas.push([nomeEnviado, tamanhoEnviado, precoEnviado, parseFloat(precosPorCm2Enviado)])    
-                 
-                
             }
             function calcularPrecoPorCm2() {
                 // Calcular os preços por cm2
                     precosPorCm2Enviado = (precoEnviado / areaEnviada).toFixed(2)
                     return precosPorCm2Enviado
             } 
-            
             function colocarNaOrdem() {
                 pizzas = pizzas.sort(function (a, b) {
                     if (a[3] > b[3]) {
@@ -318,7 +316,6 @@
                     }
                     return 0
                 })
-               
                 console.log(pizzas) 
             }
             function calcularDiferença() {
@@ -326,15 +323,31 @@
                 diferencas.push("Melhor CB")
                 // Calcular a diferença entre o custo beneficio delas
                 for (var i = 0; i < pizzas.length - 1; i++) {
-                    let diferenca = ((pizzas[i + 1][3] * 100) / pizzas[i][3]) - 100
-                    diferencas.push(diferenca)     
+                    let diferenca = (((pizzas[i + 1][3] * 100) / pizzas[i][3]) - 100).toFixed(2)
+                    diferencas.push("+" + diferenca + "%")     
                 }
+            }
+            function organizar() {
+                let aux1 = []
+                let aux2 = []
+                for (let i = 0; i < pizzas.length; i++) {
+                    aux1 = []
+                    for (let j = 0; j < pizzas[i].length; j++) {
+                        aux1.push(pizzas[i][j])
+                        
+                        
+                    }
+                    aux1.push(diferencas[i])
+                    aux2.push(aux1)
+                }
+                pizzas = aux2
             }
             function imprimir() {
                 // Imprimir o relatorio na tela
                console.log(pizzas)
                console.log(areas)
                console.log(diferencas)
+               
             }
             function limpartela() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
