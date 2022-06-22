@@ -175,6 +175,7 @@
             // Variáveis de entrada
             var nomeEnviado
             var diametroEnviado
+            var raio
             var precoEnviado
             var alturaEnviada
             var baseEnviada
@@ -184,12 +185,8 @@
             var ladoQuadradoEnviado
             // Variáveis de armazenagem
             var pizzas = []
-            var nomesPizzas = []
-            var tamanhosPizzas = []
-            var precosPizzas = []
-            var areas = []
-            var precosPorCm2 = []
             var diferencas = []
+            var areas = []
             // Variáveis para a saida
             var pNome = document.querySelector("#idPNome")
             var pTamanho = document.querySelector("#idPTamanho")
@@ -272,97 +269,72 @@
             function capturarDados() {
                 // Capturar nome, tamaho e preço
                 nomeEnviado = document.querySelector("#idNomePizza").value
-                diametroEnviado = document.querySelector("#idDiametroPizza").value
-                precoEnviado = document.querySelector("#idPrecoPizza").value
-                alturaEnviada = document.querySelector("#idTamanhoAlturaPizza").value
-                baseEnviada = document.querySelector("#idTamalhoBasePizza").value
-                ladoQuadradoEnviado = document.querySelector("#idTamanhoLadoPizza").value
+                diametroEnviado = Number(document.querySelector("#idDiametroPizza").value)
+                precoEnviado = Number(document.querySelector("#idPrecoPizza").value)
+                alturaEnviada = Number(document.querySelector("#idTamanhoAlturaPizza").value)
+                baseEnviada = Number(document.querySelector("#idTamalhoBasePizza").value)
+                ladoQuadradoEnviado = Number(document.querySelector("#idTamanhoLadoPizza").value)
             }
             function enviarDados() {
+                raio = diametroEnviado / 2
                 if (btRedonda.checked == true) {
                     tamanhoEnviado = diametroEnviado
                     // Enviar a area da pizza redonda ja calculada
-                    areaEnviada = (diametroEnviado * Math.PI).toFixed(2)
+                    areaEnviada = ((raio * raio) * Math.PI).toFixed(2)
+                    areas.push(areaEnviada)
                     precosPorCm2Enviado = calcularPrecoPorCm2()
                 }
                 if (btRetangular.checked == true) {
                     tamanhoEnviado = (alturaEnviada + "x" + baseEnviada)
                     // Enviar a forma da retangular ja calulada
                     areaEnviada = (alturaEnviada * baseEnviada).toFixed(2)
+                    areas.push(areaEnviada)
                     precosPorCm2Enviado = calcularPrecoPorCm2()
                 }
                  if (btQuadrada.checked == true) {
                     tamanhoEnviado = (ladoQuadradoEnviado + "x" + ladoQuadradoEnviado)
                     // Enviar a forma da quadrada ja calulada
                     areaEnviada = (ladoQuadradoEnviado * ladoQuadradoEnviado).toFixed(2)
+                    areas.push(areaEnviada)
                     precosPorCm2Enviado = calcularPrecoPorCm2()
                 }      
-                pizzas.push([nomeEnviado, tamanhoEnviado, precoEnviado, precosPorCm2Enviado])    
-                console.log(pizzas)  
+                pizzas.push([nomeEnviado, tamanhoEnviado, precoEnviado, parseFloat(precosPorCm2Enviado)])    
+                 
+                
             }
             function calcularPrecoPorCm2() {
                 // Calcular os preços por cm2
                     precosPorCm2Enviado = (precoEnviado / areaEnviada).toFixed(2)
                     return precosPorCm2Enviado
             } 
-            function colocarNaOrdem() {
-                // Colocando na ordem do melhor Cb para o pior CB
-                let isTrueOrFalse = true
-                while (isTrueOrFalse) {
-                    isTrueOrFalse = false
-                    for (var i = 0; i < precosPorCm2.length; i++) {
-                        if (precosPorCm2[i] > precosPorCm2[i + 1]) {
-                            isTrueOrFalse = true
-                            // Ordenando os preços por cm quadrado
-                            let aux1 = precosPorCm2[i]
-                            precosPorCm2[i] = precosPorCm2[i + 1]
-                            precosPorCm2[i + 1] = aux1
-                            // Ordenando os nomes
-                            let aux2 = nomesPizzas[i]
-                            nomesPizzas[i] = nomesPizzas[i + 1]
-                            nomesPizzas[i + 1] = aux2
-                            // Ordenando os tamanhos
-                            let aux3 = tamanhosPizzas[i]
-                            tamanhosPizzas[i] = tamanhosPizzas[i + 1]
-                            tamanhosPizzas[i + 1] = aux3
-                            // Ordenando os preços
-                            let aux4 = precosPizzas[i]
-                            precosPizzas[i] = precosPizzas[i + 1]
-                            precosPizzas[i + 1] = aux4
-                            // Ordenando as areas
-                            let aux5 = areas[i]
-                            areas[i] = areas[i + 1]
-                            areas[i + 1] = aux5
-                        }
-                    }
-                }
-            }
             
+            function colocarNaOrdem() {
+                pizzas = pizzas.sort(function (a, b) {
+                    if (a[3] > b[3]) {
+                        return 1
+                    }
+                    if (a[3] < b[3]) {
+                        return -1
+                    }
+                    return 0
+                })
+               
+                console.log(pizzas) 
+            }
             function calcularDiferença() {
-                // Calcular a diferença entre o custo beneficio delas
                 diferencas = []
-                diferencas.push("MelhorCB")
-                for (var i = 0; i < precosPorCm2.length - 1; i++) {
-                    // Iterando o array e calculando a diferença usando conceito da regra de 3
-                    let diferenca = (precosPorCm2[i + 1] * 100 / precosPorCm2[i] - 100).toFixed(1)
-                    diferencas.push("+" + diferenca + "%")
+                diferencas.push("Melhor CB")
+                // Calcular a diferença entre o custo beneficio delas
+                for (var i = 0; i < pizzas.length - 1; i++) {
+                    let diferenca = ((pizzas[i + 1][3] * 100) / pizzas[i][3]) - 100
+                    diferencas.push(diferenca)     
                 }
             }
             function imprimir() {
                 // Imprimir o relatorio na tela
-                pNome.innerHTML = ""
-                pTamanho.innerHTML = ""
-                pPrecoTotal.innerHTML = ""
-                pPrecoPorCm.innerHTML = ""
-                pDiferença.innerHTML = ""
-                for (var i = 0; i < nomesPizzas.length; i++) {
-                    // Iterando os arrays e imprimindo 
-                    pNome.innerHTML = pNome.innerHTML + nomesPizzas[i] + " "
-                    pTamanho.innerHTML = pTamanho.innerHTML + tamanhosPizzas[i] + " "
-                    pPrecoTotal.innerHTML = pPrecoTotal.innerHTML + "R$" + precosPizzas[i] + " "
-                    pPrecoPorCm.innerHTML = pPrecoPorCm.innerHTML +  "R$" + precosPorCm2[i] + " "
-                    pDiferença.innerHTML = pDiferença.innerHTML + diferencas[i] + " "
-                }
+               console.log(pizzas)
+               console.log(areas)
+               console.log(diferencas)
             }
             function limpartela() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
