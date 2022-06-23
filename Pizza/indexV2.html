@@ -75,10 +75,6 @@
                 padding: 2px;
                 padding-left: 5px;
             }
-            .clDivRelatorio{
-                
-                
-            }
             p{
                 width: 10px;
             }
@@ -96,8 +92,13 @@
             }
             td{
                 width: 100px;
+                padding-top: 15px;
             }
-            
+            th{
+                width: 100px;
+                text-align: left;
+                padding-top: 15px;
+            }
         </style>
     </head>
     <body>
@@ -204,7 +205,6 @@
             var tamanhoEnviado
             var precosPorCm2Enviado
             var ladoQuadradoEnviado
-            var cont = 0
             // Variáveis de armazenagem
             var pizzas = []
             var diferencas = []
@@ -256,6 +256,7 @@
             }             
             btCalcular.onclick = function () {
                 // Calcular area, preço por cm2, a diferença e imprimir
+                limpar()
                 document.querySelector("#idQuadroRelatorio").hidden = false
                 colocarNaOrdem()
                 calcularDiferença()
@@ -328,6 +329,7 @@
                     return precosPorCm2Enviado
             } 
             function colocarNaOrdem() {
+                // Colocar na ordem do melhor CB para o pior CB
                 pizzas = pizzas.sort(function (a, b) {
                     if (a[3] > b[3]) {
                         return 1
@@ -337,7 +339,6 @@
                     }
                     return 0
                 })
-                console.log(pizzas) 
             }
             function calcularDiferença() {
                 diferencas = []
@@ -350,37 +351,32 @@
             }
             function imprimir() {
                 // Imprimir o relatorio na tela
-                console.log(pizzas)
-                console.log(diferencas)
-                
-
                 for (var i = 0; i < pizzas.length; i++) {
-
+                    // Capturar as colunas
                     let tdNome = document.getElementById("idTdNome")
                     let tdTamanho = document.getElementById("idTdTamanho")
                     let tdPreco = document.getElementById("idTdPreco")
                     let tdPrecoPorCm2 = document.getElementById("idTdPrecoPorCm2")
                     let tdDiferenca = document.getElementById("idTdDiferenca")
-                
+                    // Criar as linhas
                     const trNome = document.createElement("tr")
                     const trTamanho = document.createElement("tr")
                     const trPreco = document.createElement("tr")
                     const trPrecoPorCm2 = document.createElement("tr")
                     const trDiferenca = document.createElement("tr")
-
+                    // Dar os dados correspondente a cada linha
                     trNome.innerHTML = pizzas[i][0]
                     trTamanho.innerHTML = pizzas[i][1]
                     trPreco.innerHTML = pizzas[i][2]
                     trPrecoPorCm2.innerHTML = pizzas[i][3]
                     trDiferenca.innerHTML = diferencas[i]
+                    // Adicionar no relatório
                     tdNome.appendChild(trNome)
                     tdTamanho.appendChild(trTamanho)
                     tdPreco.appendChild(trPreco)
                     tdPrecoPorCm2.appendChild(trPrecoPorCm2)
                     tdDiferenca.appendChild(trDiferenca)
-                   
                 }
-            
             }
             function limpar() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
@@ -390,12 +386,12 @@
                 document.querySelector("#idTamanhoAlturaPizza").value = ""
                 document.querySelector("#idTamalhoBasePizza").value = ""
                 document.querySelector("#idTamanhoLadoPizza").value = ""
+                // Limpar o relatório
                 let tdNome = document.getElementById("idTdNome").innerHTML = ""
                 let tdTamanho = document.getElementById("idTdTamanho").innerHTML = ""
                 let tdPreco = document.getElementById("idTdPreco").innerHTML = ""
                 let tdPrecoPorCm2 = document.getElementById("idTdPrecoPorCm2").innerHTML = ""
                 let tdDiferenca = document.getElementById("idTdDiferenca").innerHTML = ""
-                
             }
         </script>
     </body>
