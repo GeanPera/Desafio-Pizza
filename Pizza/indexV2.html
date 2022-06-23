@@ -166,7 +166,7 @@
                                 <td>Diferença %</td>
                             </tr>
                         </thead>
-                        <tbody class="clBodyTabela">
+                        <tbody id="idTBody">
 
                         </tbody>
                     </table>
@@ -333,15 +333,9 @@
             function imprimir() {
                 // Imprimir o relatorio na tela
                 console.log(pizzas)
-                console.log(areas)
                 console.log(diferencas)
-
-                const para = document.createElement("p");
-                para.innerHTML = "This is a paragraph.";
-
-                // Append to another element:
-                document.getElementById("myDIV").appendChild(para);
-                }
+                
+            }
             function limpartela() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
                 document.querySelector("#idNomePizza").value = ""
