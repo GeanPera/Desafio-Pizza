@@ -30,7 +30,7 @@
             }
             .clFieldset2{
                 border: 2px solid black;
-                width: 520px;
+                width: 500px;
                 padding-left: 50px;
                 padding-right: 50px;
                 padding-top: 20px;
@@ -76,11 +76,8 @@
                 padding-left: 5px;
             }
             .clDivRelatorio{
-                display: inline-table;
-                margin-top: 20px;
-                margin-right: 43px; 
-                margin-left: 0px;
-                margin-bottom: 20px;
+                
+                
             }
             p{
                 width: 10px;
@@ -91,6 +88,16 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
             }
+            table {
+                border-collapse: collapse;
+                text-indent: initial;
+                border-spacing: 0px;
+                width: 500px;
+            }
+            td{
+                width: 100px;
+            }
+            
         </style>
     </head>
     <body>
@@ -149,24 +156,20 @@
             <fieldset class="clFieldset2">
                 <!-- Quadro para apresentar o relatorio -->
                 <div class="clDivRelatorio">
-                    <label for="">Nomes</label>
-                    <p id="idPNome"></p>
-                </div>
-                <div class="clDivRelatorio">
-                    <label for="">Tam.(cm)</label>
-                    <p id="idPTamanho"></p>
-                </div>
-                <div class="clDivRelatorio">
-                    <label for="">Preço</label>
-                    <p id="idPPrecoTotal"></p>
-                </div>
-                <div class="clDivRelatorio">
-                    <label for="">R$ p/cm<sup>2</sup></label>
-                    <p id="idPPrecoPorCm"></p>
-                </div>
-                <div class="clDivRelatorio">
-                    <label for="">Diferença %</label>
-                    <p id="idPDiferença"></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Nomes</td>
+                                <td>Tam.(cm)</td>
+                                <td>Preço</td>
+                                <td>R$ p/cm<sup>2</sup></td>
+                                <td>Diferença %</td>
+                            </tr>
+                        </thead>
+                        <tbody class="clBodyTabela">
+
+                        </tbody>
+                    </table>
                 </div>
             </fieldset>
         </div>
@@ -183,6 +186,7 @@
             var tamanhoEnviado
             var precosPorCm2Enviado
             var ladoQuadradoEnviado
+            var cont = 0
             // Variáveis de armazenagem
             var pizzas = []
             var diferencas = []
@@ -237,7 +241,6 @@
                 document.querySelector("#idQuadroRelatorio").hidden = false
                 colocarNaOrdem()
                 calcularDiferença()
-                organizar()
                 imprimir()
             }
             function validarDados() {
@@ -327,28 +330,18 @@
                     diferencas.push("+" + diferenca + "%")     
                 }
             }
-            function organizar() {
-                let aux1 = []
-                let aux2 = []
-                for (let i = 0; i < pizzas.length; i++) {
-                    aux1 = []
-                    for (let j = 0; j < pizzas[i].length; j++) {
-                        aux1.push(pizzas[i][j])
-                        
-                        
-                    }
-                    aux1.push(diferencas[i])
-                    aux2.push(aux1)
-                }
-                pizzas = aux2
-            }
             function imprimir() {
                 // Imprimir o relatorio na tela
-               console.log(pizzas)
-               console.log(areas)
-               console.log(diferencas)
-               
-            }
+                console.log(pizzas)
+                console.log(areas)
+                console.log(diferencas)
+
+                const para = document.createElement("p");
+                para.innerHTML = "This is a paragraph.";
+
+                // Append to another element:
+                document.getElementById("myDIV").appendChild(para);
+                }
             function limpartela() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
                 document.querySelector("#idNomePizza").value = ""
