@@ -158,15 +158,33 @@
                 <div class="clDivRelatorio">
                     <table>
                         <thead>
-                            <tr>
-                                <td>Nomes</td>
-                                <td>Tam.(cm)</td>
-                                <td>Preço</td>
-                                <td>R$ p/cm<sup>2</sup></td>
-                                <td>Diferença %</td>
+                            <tr><th>Nomes</th>
+                                <th>Tam.(cm)</th>
+                                <th>Preço</th>
+                                <th>R$ p/cm<sup>2</sup></th>
+                                <th>Diferença %</th>
                             </tr>
                         </thead>
                         <tbody id="idTBody">
+                            <td id="idTdNome">
+
+                            </td>
+
+                            <td id="idTdTamanho">
+                                
+                            </td>
+
+                            <td id="idTdPreco">
+                                                                
+                            </td>
+
+                            <td id="idTdPrecoPorCm2">
+                                
+                            </td>
+
+                            <td id="idTdDiferenca">
+                                
+                            </td>
 
                         </tbody>
                     </table>
@@ -230,7 +248,7 @@
                 validarDados()
                 if (validarDados() == true) {
                     enviarDados()
-                    limpartela()
+                    limpar()
                 }
                 else {
                     alert(" Algum campo está vazio ")
@@ -335,8 +353,36 @@
                 console.log(pizzas)
                 console.log(diferencas)
                 
+
+                for (var i = 0; i < pizzas.length; i++) {
+
+                    let tdNome = document.getElementById("idTdNome")
+                    let tdTamanho = document.getElementById("idTdTamanho")
+                    let tdPreco = document.getElementById("idTdPreco")
+                    let tdPrecoPorCm2 = document.getElementById("idTdPrecoPorCm2")
+                    let tdDiferenca = document.getElementById("idTdDiferenca")
+                
+                    const trNome = document.createElement("tr")
+                    const trTamanho = document.createElement("tr")
+                    const trPreco = document.createElement("tr")
+                    const trPrecoPorCm2 = document.createElement("tr")
+                    const trDiferenca = document.createElement("tr")
+
+                    trNome.innerHTML = pizzas[i][0]
+                    trTamanho.innerHTML = pizzas[i][1]
+                    trPreco.innerHTML = pizzas[i][2]
+                    trPrecoPorCm2.innerHTML = pizzas[i][3]
+                    trDiferenca.innerHTML = diferencas[i]
+                    tdNome.appendChild(trNome)
+                    tdTamanho.appendChild(trTamanho)
+                    tdPreco.appendChild(trPreco)
+                    tdPrecoPorCm2.appendChild(trPrecoPorCm2)
+                    tdDiferenca.appendChild(trDiferenca)
+                   
+                }
+            
             }
-            function limpartela() {
+            function limpar() {
                 // Limpa os campos nome, tamanaho, preço, altura e base
                 document.querySelector("#idNomePizza").value = ""
                 document.querySelector("#idDiametroPizza").value = ""
@@ -344,6 +390,12 @@
                 document.querySelector("#idTamanhoAlturaPizza").value = ""
                 document.querySelector("#idTamalhoBasePizza").value = ""
                 document.querySelector("#idTamanhoLadoPizza").value = ""
+                let tdNome = document.getElementById("idTdNome").innerHTML = ""
+                let tdTamanho = document.getElementById("idTdTamanho").innerHTML = ""
+                let tdPreco = document.getElementById("idTdPreco").innerHTML = ""
+                let tdPrecoPorCm2 = document.getElementById("idTdPrecoPorCm2").innerHTML = ""
+                let tdDiferenca = document.getElementById("idTdDiferenca").innerHTML = ""
+                
             }
         </script>
     </body>
